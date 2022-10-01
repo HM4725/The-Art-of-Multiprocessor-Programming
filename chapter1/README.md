@@ -1,5 +1,7 @@
 # Count Prime Numbers
 ## sequential
+*"NOT IN TEXTBOOK"*
+
 Get the number of prime numbers from 1 to 10,000,000 sequentially.
 
 ## figure1
@@ -13,6 +15,8 @@ Balancing the workload using a shared counter. Each thread gets a dynamically de
 ![figure2](./img/figure1.2.svg)
 
 ## swarm
+*"NOT IN TEXTBOOK"*
+
 Similar with figure1. But different at loop.
 ```c
 // figure1
@@ -35,9 +39,16 @@ for (int n = id + 1; n <= limit; n += NTHREADS) {
 ![swarm](./img/swarm.svg)
 
 ## atomic
+*"NOT IN TEXTBOOK"*
+
 Atomic version of figure2.
 
 # Love Story of Alice & Bob
+## mutex0
+*"NOT IN TEXTBOOK"*
+
+It used the standard mutex as a lock protocol.
+
 ## mutex1
 Alice's pet and Bob's pet must be mutually exclusive.
 Only 1 pet can get in the pond.
@@ -109,6 +120,7 @@ Storage      : APPLE SSD AP0256Q 256GB
 ## Results: Alice and Bob
 |Program|Deadlock|Checksum|Alice's duration|Bob's duration|
 |---|---|---|---|---|
+|mutex0|X|2000000|0.064338s|0.066079s|
 |mutex1|O|-|-|-|
 |mutex2|X|2000000|0.034231s|0.039176s|
 |producer_consumer|X|0|0.112907s|0.112873s|

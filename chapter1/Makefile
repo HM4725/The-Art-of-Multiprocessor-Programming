@@ -4,7 +4,7 @@ MD = mkdir
 
 all: bin \
 	sequential figure1 figure2 swarm atomic \
-	mutex1 mutex2 producer_consumer
+	mutex0 mutex1 mutex2 producer_consumer
 
 bin:
 	$(MD) -p bin
@@ -22,6 +22,9 @@ swarm:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp 
 
 atomic:
+	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
+
+mutex0:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 mutex1:
