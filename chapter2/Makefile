@@ -3,7 +3,8 @@ CXXFLAGS = -std=c++11 -g -O0 -pthread
 MD = mkdir
 
 all: bin \
-	lock1 lock2 peterson lockfree sloppy
+	lock1 lock2 peterson lockfree sloppy \
+	filter
 
 bin:
 	$(MD) -p bin
@@ -21,6 +22,9 @@ lockfree:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 sloppy:
+	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
+
+filter:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 
