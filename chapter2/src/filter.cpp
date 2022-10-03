@@ -9,7 +9,7 @@ class FilterLock {
     size_t N;
     std::vector<int> level;
     std::vector<int> victim;
-    bool _higher_exist(int id) {
+    bool _conflict(int id) {
       for(int k = 0; k < N; k++) {
         if(k != id && level[k] >= level[id]) {
           return true;
@@ -24,7 +24,9 @@ class FilterLock {
         std::atomic_thread_fence(std::memory_order_seq_cst);
         victim[l] = id;
         std::atomic_thread_fence(std::memory_order_seq_cst);
-        while(_higher_exist(id) && victim[l] == id);
+        // Wait as long as someone else is at same or
+        // higher level, and I’m designated victim.
+        while(_conflict(id) && victim[l] == id);
       }
       std::atomic_thread_fence(std::memory_order_acquire);
     }
