@@ -2,7 +2,7 @@
 #include <vector>
 #include <thread>
 
-#define NTIMES 1000000
+#define NTIMES 100000
 
 class FilterLock {
   private:
@@ -45,18 +45,26 @@ int main(void) {
   const size_t N = std::thread::hardware_concurrency();
   std::vector<std::thread> threads;
   threads.reserve(N);
+  std::vector<double> durations;
+  durations.resize(N, 0);
 
   // Shared Objects
   FilterLock lock(N);
   int count = 0;
 
   for(int i = 0; i < N; i++) {
-    threads.emplace_back([&lock, &count](int id) {
+    threads.emplace_back([&lock, &count, &durations](int id) {
+      struct timespec cbegin, cend;
+      double duration;
+      clock_gettime(CLOCK_MONOTONIC, &cbegin);
       for(int j = 0; j < NTIMES; j++) {
         lock.lock(id);
         count++;
         lock.unlock(id);
       }
+      clock_gettime(CLOCK_MONOTONIC, &cend);
+      duration = (cend.tv_sec - cbegin.tv_sec) + (cend.tv_nsec - cbegin.tv_nsec) / 1000000000.0;
+      durations[id] = duration;
     }, i);
   }
   
@@ -64,5 +72,8 @@ int main(void) {
     thread.join();
   }
   std::cout << "Count: " << count << std::endl;
+  for(int i = 0; i < N; i++) {
+    std::cout << "Thread[" << i << "]'s duration: " << durations[i] << "s" << std::endl;
+  }
   return 0;
 }

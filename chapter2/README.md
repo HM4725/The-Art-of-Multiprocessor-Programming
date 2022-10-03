@@ -20,6 +20,9 @@ Design with the sloppy counter.
 
 
 # Mutex: N-Thread Solutions
+## filter
+
+## bakery
 
 # Evaluation
 ## How to build
@@ -48,3 +51,6 @@ Storage      : APPLE SSD AP0256Q 256GB
 |sloppy|X|2000000|0.009734s|0.009746s|
 
 ## Results: N-Thread Solutions
+|Program|Deadlock|Checksum|duration0|duration1|duration2|duration3|duration4|duration5|duration6|duration7|
+|---|---|---|---|---|---|---|---|---|---|---|
+|filter|X|800000|0.680179s|0.678443s|0.677037s|0.680617s|0.680461s|0.673903s|0.680649s|0.677445s|
