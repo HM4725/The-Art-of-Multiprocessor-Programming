@@ -21,8 +21,9 @@ Design with the sloppy counter.
 
 # Mutex: N-Thread Solutions
 ## filter
-
+2.4 The Filter Lock (page 28)
 ## bakery
+2.6 Lamport's Bakery Algorithm (page 31)
 
 # Evaluation
 ## How to build
@@ -54,3 +55,4 @@ Storage      : APPLE SSD AP0256Q 256GB
 |Program|Deadlock|Checksum|duration0|duration1|duration2|duration3|duration4|duration5|duration6|duration7|
 |---|---|---|---|---|---|---|---|---|---|---|
 |filter|X|800000|0.680179s|0.678443s|0.677037s|0.680617s|0.680461s|0.673903s|0.680649s|0.677445s|
+|bakery|X|800000|0.400143s|0.400247s|0.400325s|0.400315s|0.400291s|0.4003s|0.400275s|0.400257s|

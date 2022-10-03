@@ -4,7 +4,7 @@ MD = mkdir
 
 all: bin \
 	lock1 lock2 peterson lockfree sloppy \
-	filter
+	filter bakery
 
 bin:
 	$(MD) -p bin
@@ -25,6 +25,9 @@ sloppy:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 filter:
+	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
+
+bakery:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 
