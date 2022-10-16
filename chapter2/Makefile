@@ -1,34 +1,18 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -g -O0 -pthread
 MD = mkdir
+INC = -I src/include
 
-all: bin \
-	lock1 lock2 peterson lockfree sloppy \
-	filter bakery
+TARGET = lock1 lock2 peterson lockfree sloppy \
+		filter bakery
+
+all: bin $(TARGET)
 
 bin:
 	$(MD) -p bin
 
-lock1:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-lock2:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-peterson:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-lockfree:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-sloppy:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-filter:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
-
-bakery:
-	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
+$(TARGET):
+	$(CXX) $(CXXFLAGS) $(INC) -o bin/$@ src/$@.cpp
 
 
 clean:
