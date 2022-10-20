@@ -3,3 +3,6 @@ bin
 
 # Local
 .DS_Store
+
+# vscode
+.vscode/
