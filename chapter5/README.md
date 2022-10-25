@@ -41,7 +41,7 @@ Fails: 246
 Fails: 0
 ```
 > Consensus number: 2
-### atomic_flag (get_and_fetch)
+### flag_atomic (get_and_fetch)
 ```
 [61632 / 61632]
 Fails: 0
