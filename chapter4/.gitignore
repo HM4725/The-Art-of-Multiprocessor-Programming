@@ -1,0 +1,4 @@
+# Build
+obj/
+*.o
+run
