@@ -3,7 +3,7 @@ CXXFLAGS = -std=c++11 -g -O0 -pthread
 MD = mkdir
 
 all: bin \
-	sequential figure1 figure2 swarm atomic \
+	sequential figure1 figure2 swarm sw_swarm atomic \
 	mutex0 mutex1 mutex2 producer_consumer
 
 bin:
@@ -19,6 +19,9 @@ figure2:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp
 
 swarm:
+	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp 
+
+sw_swarm:
 	$(CXX) $(CXXFLAGS) -o bin/$@ src/$@.cpp 
 
 atomic:
