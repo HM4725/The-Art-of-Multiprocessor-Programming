@@ -38,6 +38,12 @@ for (int n = id + 1; n <= limit; n += NTHREADS) {
 
 ![swarm](./img/swarm.svg)
 
+## sw_swarm
+*"NOT IN TEXTBOOK"*
+
+Well balanced swarm. It checks only odd number.
+
+
 ## atomic
 *"NOT IN TEXTBOOK"*
 
