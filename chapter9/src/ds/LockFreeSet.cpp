@@ -98,8 +98,6 @@ bool LockFreeSet::remove(int64 key) {
       // TODO: Need GC
       // delete unmarked_curr;
       break;
-    } else {
-      return false;
     }
   }
   return true;
