@@ -1,9 +1,10 @@
 CXX = g++
-CXXFLAGS = -std=c++11 -g -O0 -pthread
+CXXFLAGS = -std=c++11 -g -pthread -w
 MD = mkdir
-INC = -I ./include
+INC = -I ./src/include
 
-TARGET = coarse_grained fine_grained optimistic lock_free
+TARGET = FineGrainedSet CoarseGrainedSet \
+		 LazySyncSet OptimisticSet LockFreeSet
 
 all: bin $(TARGET)
 
@@ -11,8 +12,8 @@ bin:
 	$(MD) -p bin
 
 $(TARGET):
-	$(CXX) $(CXXFLAGS) $(INC) -o bin/$@ src/$@.cpp
-
+	$(CXX) $(CXXFLAGS) $(INC) -DDATASTRUCTURE=$@ \
+		-o bin/$@ src/ds/$@.cpp src/main.cpp
 
 clean:
 	rm -rf bin
