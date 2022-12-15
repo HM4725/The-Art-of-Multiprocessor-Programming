@@ -5,6 +5,7 @@
 
 class SetInterface {
 public:
+  virtual ~SetInterface() {};
   /* Concurrent Methods
    *   These method are called concurrently.
    */

@@ -33,7 +33,7 @@ workdata parseWorkdata(std::string l) {
 int main() {
   std::vector<workdata> Workloads[NTHREADS];
   std::vector<std::thread> threads;
-  DATASTRUCTURE Set;
+  SetInterface *Set = new DATASTRUCTURE();
 
   // Workload init
   std::ifstream fworkload("workload.txt");
@@ -46,9 +46,10 @@ int main() {
     Workloads[nline / QUOTA].push_back(parseWorkdata(line));
     nline += 1;
   }
+  fworkload.close();
 
   // Main routine
-  auto ThreadFunc = [&Workloads, &Set](int id) {
+  auto ThreadFunc = [&Workloads, Set](int id) {
     std::vector<workdata> &workload = Workloads[id];
     std::vector<workdata>::iterator itr;
     for (itr = workload.begin(); itr != workload.end(); itr++) {
@@ -56,13 +57,13 @@ int main() {
       int64 key = itr->key;
       switch (type) {
       case 'A':
-        Set.add(key);
+        Set->add(key);
         break;
       case 'R':
-        Set.remove(key);
+        Set->remove(key);
         break;
       case 'C':
-        Set.contains(key);
+        Set->contains(key);
         break;
       default:
         break;
@@ -80,12 +81,16 @@ int main() {
   // Validation
   std::ifstream fresult("result.txt");
   if (!fresult.is_open()) {
+    delete Set;
     return -1;
   }
   getline(fresult, line);
   int sz= std::stoi(line);
-  std::string res = Set.size() == sz ? "correct" : "incorrect";
+  std::string res = Set->size() == sz ? "correct" : "incorrect";
   std::cout << res << std::endl;
+
+  fresult.close();
+  delete Set;
 
   return 0;
 }
