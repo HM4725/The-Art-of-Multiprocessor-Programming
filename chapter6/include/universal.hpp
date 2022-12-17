@@ -138,7 +138,7 @@ template <typename T, class SeqDerived> class HMUniversal {
 private:
   SeqObject<T, SeqDerived> *obj;
   const Node<T, SeqDerived> *tail;
-  std::atomic<Node<T, SeqDerived> *>head;
+  std::atomic<Node<T, SeqDerived> *> head;
   const size_t N;
 
 public:
@@ -148,9 +148,15 @@ public:
   ~HMUniversal() { delete obj; }
   Response<T> apply(int id, const Invoc<T> &invoc) {
     Node<T, SeqDerived> *prefer = new Node<T, SeqDerived>(invoc, N);
-    Node<T, SeqDerived> *before = head.exchange(prefer);
-    before->next = prefer;
-    prefer->seq = before->seq + 1;
+    for(Node<T, SeqDerived> *before = head.load(); ;before = before->next) {
+      if(__sync_bool_compare_and_exchange(&before->next, nullptr, prefer)) {
+        prefer->seq = before->seq + 1;
+        if(prefer->seq > head->seq) {
+          head.store(prefer);
+        }
+        break;
+      }
+    }
 
     // Compute my response
     SeqObject<T, SeqDerived> *myObject = obj->clone();
